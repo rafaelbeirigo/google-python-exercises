@@ -1,4 +1,4 @@
-#!/usr/bin/python -tt
+#!/usr/bin/python2
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -13,8 +13,24 @@
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
 def remove_adjacent(nums):
-  # +++your code here+++
-  return
+  if len(nums) == 0:
+    return nums
+  
+  nums.sort()
+  
+  result = []
+
+  # percorre a lista ordenada, pulando os elementos repetidos
+  # quando nao pula, insere o elemento na lista resultante
+  current = None
+  for num in nums:
+    if num == current:
+      continue
+    else:
+      result.append(num)
+      current = num
+
+  return result
 
 
 # E. Given two lists sorted in increasing order, create and return a merged
