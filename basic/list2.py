@@ -13,22 +13,10 @@
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
 def remove_adjacent(nums):
-  if len(nums) == 0:
-    return nums
-  
-  nums.sort()
-  
   result = []
-
-  # percorre a lista ordenada, pulando os elementos repetidos
-  # quando nao pula, insere o elemento na lista resultante
-  current = None
   for num in nums:
-    if num == current:
-      continue
-    else:
+    if len(result == 0) or num != result[-1]:
       result.append(num)
-      current = num
 
   return result
 
