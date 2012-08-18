@@ -1,4 +1,4 @@
-#!/usr/bin/python -tt
+#!/usr/bin/python2
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -21,8 +21,12 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
-  # +++your code here+++
-  return
+  count = 0
+  for word in words:
+    if len(word) >= 2:
+      if word[0] == word[-1]:
+        count += 1
+  return count
 
 
 # B. front_x
@@ -33,9 +37,21 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-  # +++your code here+++
-  return
+  a_words = []
+  x_words = []
 
+  for word in words:
+    if word[0] == 'x':
+      x_words.append(word)
+    else:
+      a_words.append(word)
+
+  a_words.sort()
+  x_words.sort()
+
+  result = x_words + a_words
+
+  return result
 
 
 # C. sort_last
