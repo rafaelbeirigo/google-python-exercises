@@ -15,7 +15,7 @@
 def remove_adjacent(nums):
   result = []
   for num in nums:
-    if len(result == 0) or num != result[-1]:
+    if len(result) == 0 or num != result[-1]:
       result.append(num)
 
   return result
@@ -37,12 +37,10 @@ def linear_merge(list1, list2):
       result.append(list2[j])
       j += 1
 
-  # verifica se uma das listas ainda contem itens e,
-  # em caso afirmativo, adiciona-os a lista resultante
-  if i < len(list1):
-    result.extend(list1[i:])
-  elif j < len(list2):
-    result.extend(list2[j:])
+  # adiciona o que sobrou, se houver
+  # Nota: lista[x:] == [] para x >= len(lista)
+  result.extend(list1[i:])
+  result.extend(list2[j:])
   
   return result
 
