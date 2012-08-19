@@ -39,18 +39,12 @@ def match_ends(words):
 def front_x(words):
   a_words = []
   x_words = []
-
   for word in words:
     if word[0] == 'x':
       x_words.append(word)
     else:
       a_words.append(word)
-
-  a_words.sort()
-  x_words.sort()
-
-  result = x_words + a_words
-
+  result = x_words.sort() + a_words.sort()
   return result
 
 
