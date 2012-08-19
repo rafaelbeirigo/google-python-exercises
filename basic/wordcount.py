@@ -1,4 +1,4 @@
-#!/usr/bin/python -tt
+#!/usr/bin/python2
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -45,14 +45,58 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-###
+def clean_word(word):
+  """ Removes all non-alpha chars from word """
+  new_word = ''
+  for ch in word:
+    if str.isalpha(ch):
+      new_word += ch
+  return new_word
+
+
+# receives a filename and returns a dictionary with the word count
+def count_words(filename):
+  f = open(filename, 'r')
+  dic = {}
+  for line in f:
+    words = line.split()
+    for w in words:
+      w = w.lower()
+      w = clean_word(w)
+      if w not in dic:
+        dic[w] = 1
+      else:
+        dic[w] += 1
+  f.close()
+  return dic
+
+
+def print_words(filename):
+  dic = count_words(filename)
+  words = sorted(dic.keys())
+  for w in words:
+    print w, dic[w]
+
+
+def get_count(word_count_tuple):
+  """Returns the word count form a tuple"""
+  return word_count_tuple[1]
+
+
+def print_top(filename):
+  dic = count_words(filename)
+  items = sorted(dic.items(), key=get_count, reverse = True)
+  for item in items[:20]:
+    print item[0], item[1]
+    
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
   if len(sys.argv) != 3:
     print 'usage: ./wordcount.py {--count | --topcount} file'
-    sys.exit(1)
+    # sys.exit(0)
+    return
 
   option = sys.argv[1]
   filename = sys.argv[2]
@@ -62,7 +106,8 @@ def main():
     print_top(filename)
   else:
     print 'unknown option: ' + option
-    sys.exit(1)
+    # sys.exit(0)
+    return
 
 if __name__ == '__main__':
   main()
