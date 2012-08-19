@@ -1,4 +1,4 @@
-#!/usr/bin/python2.4 -tt
+#!/usr/bin/python2
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -95,6 +95,7 @@ def main():
   test(not_bad('This dinner is not that bad!'), 'This dinner is good!')
   test(not_bad('This tea is not hot'), 'This tea is not hot')
   test(not_bad("It's bad yet not"), "It's bad yet not")
+  test(not_bad("It's very bad"), "It's very bad")
 
   print
   print 'front_back'
