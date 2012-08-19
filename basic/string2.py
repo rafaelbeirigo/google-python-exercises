@@ -38,11 +38,12 @@ def not_bad(s):
   whereIsNot = s.find('not')
   whereIsBad = s.find('bad')
 
-  if whereIsBad > whereIsNot:
+  if whereIsNot == -1:
+    return s
+  elif whereIsBad > whereIsNot:
     # There is a 'not'...'bad' substring in s
     beginning = s[:whereIsNot]
     end = s[whereIsBad + 3:]
-
     result = beginning + 'good' + end
   else:
     result = s
@@ -110,7 +111,8 @@ def main():
   test(not_bad('This dinner is not that bad!'), 'This dinner is good!')
   test(not_bad('This tea is not hot'), 'This tea is not hot')
   test(not_bad("It's bad yet not"), "It's bad yet not")
-
+  test(not_bad("It's very bad"), "It's very bad")
+  
   print
   print 'front_back'
   test(front_back('abcd', 'xy'), 'abxcdy')
