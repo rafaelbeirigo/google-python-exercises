@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -40,19 +40,42 @@ def extract_names(filename):
   followed by the name-rank strings in alphabetical order.
   ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
   """
-  # +++your code here+++
-  return
+  # reads the whole file into a string
+  f = open(filename, 'r')
+  s = f.read()
+  f.close()
+
+  rank_list = []
+  
+  # extract the year
+  match = re.search(r'Popularity in (\d\d\d\d)', s)
+  if match:
+    rank_list.append(match.group(1))
+  else:
+    print 'error: Couldn\'t find the year!'
+    exit(1)
+
+  # extract the rank and the names
+  regexp = r'<tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>'
+  tuples = re.findall(regexp, s)
+  for tuple in tuples:
+    rank_list.append(tuple[1] + ' ' + tuple[0])
+    rank_list.append(tuple[2] + ' ' + tuple[0])
+
+  return sorted(rank_list)
 
 
 def main():
   # This command-line parsing code is provided.
   # Make a list of command line arguments, omitting the [0] element
   # which is the script itself.
+
   args = sys.argv[1:]
 
   if not args:
     print 'usage: [--summaryfile] file [file ...]'
-    sys.exit(1)
+    # sys.exit(1)
+    return
 
   # Notice the summary flag and remove it from args if it is present.
   summary = False
@@ -60,6 +83,14 @@ def main():
     summary = True
     del args[0]
 
+  if summary: f = open('summary.txt', 'w')
+  for filename in args:
+    rank_list = extract_names(filename)
+    for item in rank_list:
+      if summary: f.write(item + '\n')
+      else: print item + '\n'
+  if summary: f.close()
+    
   # +++your code here+++
   # For each filename, get the names, then either print the text output
   # or write it to a summary file
