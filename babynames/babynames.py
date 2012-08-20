@@ -88,7 +88,7 @@ def main():
     rank_list = extract_names(filename)
     for item in rank_list:
       if summary: f.write(item + '\n')
-      else: print item + '\n'
+      else: print item
   if summary: f.close()
     
   # +++your code here+++
